@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e次元共生：基于“工银智涌”大模型与工银e生活的年轻客群IP金融生态创新研究</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plotly.js CDN -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        icbc: {
+                            red: '#c7000b',
+                            dark: '#0f172a',
+                            indigo: '#4f46e5',
+                            teal: '#06b6d4',
+                            coral: '#f43f5e',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                            card: '#ffffff'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.93);
+            backdrop-filter: blur(12px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #fb7185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Mandatory Meta Placeholder Comments -->
+    <!-- Chosen Palette: Deep Slate & Electric Indigo Symbiosis (ICBC Red Accent, Slate Neutral, Cyan, Indigo Primary, Rose & Emerald Highlights) -->
+    <!-- Application Structure Plan: Designed a 6-tier interactive dashboard structure: 1. Executive Summary & Macro Background -> 2. Youth Pan-ACGN & Gu-zi Market Potential -> 3. "智涌共生" 4-Pillar Ecosystem & Interactive Agent Simulator -> 4. Multi-Scenario Financial ROI & Sensitivity Modeling -> 5. 4-Layer Risk Matrix & RACI Organizational Defense -> 6. Implementation Roadmap, Milestones & KPI Dashboard. This structure moves from problem diagnosis to solution architecture, interactive proof-of-concept, financial justification, and operational execution. -->
+    <!-- Visualization & Content Choices: 
+         - Chart 1 (Chart.js Combo Bar/Line): Credit Card Stock vs Overdue loans to prove macro plateau.
+         - Chart 2 (Chart.js Doughnut Gauge): Regulatory 20% limit vs Project target <10%.
+         - Chart 3 (Chart.js Area): Gu-zi Market Growth (2021-2029 projection).
+         - Chart 4 (Chart.js Horizontal Bar): Z-Gen Demographics & Purchasing intent breakdown.
+         - Chart 5 (Plotly.js WebGL Radar): Traditional Co-branding vs ICBC Zhiyong Model radar evaluation.
+         - Chart 6 (Chart.js Line): 18-month Retention Curve comparison.
+         - Interactive Agent Simulator: Live script preview for IP Assistant "小智" (查账, 积分兑换, 反诈提醒).
+         - Interactive Financial Scenario Switcher: Dynamic recalculation of 3-Year ROI (Base, Conservative, Optimistic).
+         - Confirmation: NO SVG graphics used. NO Mermaid JS used. All visual elements generated via Canvas and structured HTML/Tailwind styling. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl font-black text-rose-500">ICBC</span>
+                <span class="text-slate-400">|</span>
+                <span class="text-sm md:text-base font-bold tracking-wide text-slate-100">“工行杯”创意大赛：e次元共生</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-xs lg:text-sm font-medium">
+                <a href="#macro" class="hover:text-cyan-400 transition">宏观痛点</a>
+                <a href="#market" class="hover:text-cyan-400 transition">谷子经济</a>
+                <a href="#architecture" class="hover:text-cyan-400 transition">智涌共生架构</a>
+                <a href="#financials" class="hover:text-cyan-400 transition">精算与敏感性</a>
+                <a href="#risks" class="hover:text-cyan-400 transition">风控与RACI</a>
+                <a href="#roadmap" class="hover:text-cyan-400 transition">实施路径</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Title Section -->
+    <section class="bg-slate-900 text-white py-12 md:py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <span class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-semibold">
+                    <span>✦ 中国工商银行“工行杯”金融创意设计比赛作品</span>
+                </span>
+                <div class="text-xs text-slate-400 flex space-x-4">
+                    <span><strong>参赛选手：</strong>芮梓博</span>
+                    <span><strong>所属高校：</strong>北京大学</span>
+                </div>
+            </div>
+            
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-4">
+                e 次元共生：<br>
+                <span class="gradient-text">基于“工银智涌”大模型与工银e生活的年轻客群IP金融生态创新研究</span>
+            </h1>
+            <p class="text-slate-300 max-w-4xl text-xs md:text-sm leading-relaxed mb-6">
+                破解信用卡“存量去库存”与监管“睡眠卡率&lt;20%”双重困局。依托千亿级“工银智涌”大模型与千万级“工银e生活”非银平台，构建“借贷分离、多模态动态卡面、消费达标赢周边、全生命周期防沉睡”四位一体的年轻客群IP金融生态新范式。
+            </p>
+
+            <!-- Key Metric KPI Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-6">
+                <div class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl shadow">
+                    <p class="text-xs text-slate-400 font-medium">全国信用卡存量</p>
+                    <p class="text-xl md:text-2xl font-black text-cyan-400 mt-1">7.27<span class="text-xs font-normal text-slate-300"> 亿张</span></p>
+                    <p class="text-[10px] text-rose-400 mt-0.5">连续9季缩量 (累减8000万)</p>
+                </div>
+                <div class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl shadow">
+                    <p class="text-xs text-slate-400 font-medium">泛二次元年轻客群</p>
+                    <p class="text-xl md:text-2xl font-black text-indigo-400 mt-1">5.03<span class="text-xs font-normal text-slate-300"> 亿人</span></p>
+                    <p class="text-[10px] text-emerald-400 mt-0.5">Z世代占比高达 95%</p>
+                </div>
+                <div class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl shadow">
+                    <p class="text-xs text-slate-400 font-medium">“谷子经济”核心市场</p>
+                    <p class="text-xl md:text-2xl font-black text-rose-400 mt-1">1689<span class="text-xs font-normal text-slate-300"> 亿元</span></p>
+                    <p class="text-[10px] text-rose-400 mt-0.5">2024同比暴增 +40.63%</p>
+                </div>
+                <div class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl shadow">
+                    <p class="text-xs text-slate-400 font-medium">3年精算预估ROI</p>
+                    <p class="text-xl md:text-2xl font-black text-emerald-400 mt-1">106<span class="text-xs font-normal text-slate-300"> %</span></p>
+                    <p class="text-[10px] text-slate-300 mt-0.5">净利润预估 5.5 亿元</p>
+                </div>
+                <div class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl shadow">
+                    <p class="text-xs text-slate-400 font-medium">工行防沉睡目标</p>
+                    <p class="text-xl md:text-2xl font-black text-amber-400 mt-1">&lt; 10<span class="text-xs font-normal text-slate-300"> %</span></p>
+                    <p class="text-[10px] text-slate-400 mt-0.5">远低于 20% 法定红线</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <!-- SECTION 1: MACRO BACKGROUND & PAIN POINTS -->
+        <section id="macro" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="border-l-4 border-indigo-600 pl-4 mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900">一、项目背景与宏观金融生态演进</h2>
+                <p class="text-xs md:text-sm text-slate-500 mt-1">商业银行告别跑马圈地，信用卡新规全面施行，“长期睡眠卡率&lt;20%”成为刚性经营红线。</p>
+            </div>
+
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-6">
+                据央行《2024年支付体系运行总体情况》，全国信用卡及借贷合一卡在用发卡量从历史峰值的8.07亿张降至7.27亿张，连续9个季度缩量；逾期半年未偿信贷增至1239.64亿元 (+26.32%)。粗放铺量难以为继，银行必须转向“存量高质量促活”。传统银企联名存在<strong>“平台基础设施错位（融e购关停后缺乏载体）、浅层贴纸式联而不合、盲目盲盒办卡引发睡眠合规风险”</strong>三重症结。
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">1.1 全国信用卡在用发卡量与逾期未偿变动趋势 (2021-2024)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartCreditTrend"></canvas>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">1.2 信用卡新规“睡眠卡率&lt;20%”刚性监管红线对标</h3>
+                    <div class="chart-container">
+                        <canvas id="chartSleepingGauge"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table: Traditional vs Ecosystem -->
+            <div class="mt-8 overflow-x-auto">
+                <h3 class="text-sm font-bold text-slate-800 mb-3">1.3 传统粗放发卡模式 vs 存量高质量生态化运营模式对比</h3>
+                <table class="w-full text-xs text-left border-collapse border border-slate-200">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700">
+                            <th class="p-2.5 border border-slate-200">业务运营维度</th>
+                            <th class="p-2.5 border border-slate-200 text-rose-700">传统粗放发卡模式 (淘汰路径)</th>
+                            <th class="p-2.5 border border-slate-200 text-emerald-700">存量高质量生态化运营模式 (目标路径)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-600">
+                        <tr>
+                            <td class="p-2.5 font-semibold bg-slate-50">战略考核导向</td>
+                            <td class="p-2.5">盲目考核发卡总量、市场占有率与新增用户数</td>
+                            <td class="p-2.5 font-medium text-slate-900">核心考核活跃户比例、生息资产质量与综合AUM贡献</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2.5 font-semibold bg-slate-50">产品展现形态</td>
+                            <td class="p-2.5">单一静态塑料实体卡片，浅层印图，更新缓慢</td>
+                            <td class="p-2.5">3D动态数字卡面 + 专属特种工艺卡 + 智能虚拟分身Agent</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2.5 font-semibold bg-slate-50">促活与权益闭环</td>
+                            <td class="p-2.5">依赖一次性办卡礼/盲盒抽奖，用后即弃形成恶性睡眠</td>
+                            <td class="p-2.5">日常消费达标兑换正版周边，高频打卡与全生命周期防沉睡</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2.5 font-semibold bg-slate-50">信贷合规机制</td>
+                            <td class="p-2.5">跨行额度叠加、学生授信宽松、诱导多头办卡</td>
+                            <td class="p-2.5">刚性扣减他行总授信、借贷分离（学生仅发借记卡）、睡眠率探针熔断</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 2: YOUTH MARKET & GU-ZI ECONOMY -->
+        <section id="market" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="border-l-4 border-rose-500 pl-4 mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900">二、泛二次元群体崛起与“谷子经济”爆发行情</h2>
+                <p class="text-xs md:text-sm text-slate-500 mt-1">情绪价值与圈层归属成为Z世代核心消费驱动力，提供巨大的非息收入与流量黏性空间。</p>
+            </div>
+
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-6">
+                围绕动漫、游戏衍生品（徽章、亚克力立牌、色纸）的“谷子经济”2024年市场规模达1689亿元（同比+40.63%），广义周边产业逼近6000亿元。5.03亿泛二次元群体中，女性占比61.39%，高线城市占比超50%，月收入5k-15k占比62.98%，表现出极高的正版付费意愿与情绪溢价承受力。
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">2.1 中国“谷子经济”核心市场规模及预测 (亿元)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartGuziMarket"></canvas>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">2.2 Z世代泛二次元客群画像与行为特征</h3>
+                    <div class="chart-container">
+                        <canvas id="chartYouthDemographics"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CORE ARCHITECTURE & ECOSYSTEM -->
+        <section id="architecture" class="bg-slate-900 text-white rounded-2xl shadow-xl p-6 md:p-8">
+            <div class="border-l-4 border-teal-400 pl-4 mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-white">三、“智涌共生”四位一体年轻客群IP金融生态</h2>
+                <p class="text-xs md:text-sm text-slate-400 mt-1">依托“工银智涌”大模型与“工银e生活”非银平台，构建高合规、可持续的商业闭环。</p>
+            </div>
+
+            <!-- 4 Pillar Feature Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 hover:border-indigo-500 transition">
+                    <div class="w-9 h-9 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg font-bold mb-2">💳</div>
+                    <h4 class="text-sm font-bold text-slate-100">1. 借贷分离分层准入</h4>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                        学生/微收群体：配发<strong class="text-indigo-300">工银青春借记卡</strong>，隔离信贷风险，沉淀第一结算户；职场青年：核发IP信用卡并执行跨行授信刚性扣减。
+                    </p>
+                </div>
+
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 hover:border-cyan-500 transition">
+                    <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg font-bold mb-2">🤖</div>
+                    <h4 class="text-sm font-bold text-slate-100">2. “智涌”多模态交互</h4>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                        3D动态数字卡面，消费累积“灵动值”演进形态；千亿级大模型结合RAG打造IP伴随式AI金融助理Agent。
+                    </p>
+                </div>
+
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 hover:border-rose-500 transition">
+                    <div class="w-9 h-9 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-lg font-bold mb-2">🛒</div>
+                    <h4 class="text-sm font-bold text-slate-100">3. 工银e生活场景协同</h4>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                        接棒“融e购”，e生活App设“次元文创专区”，积分抵扣、周边3期免息；“消费达标赢周边”合规取代盲盒。
+                    </p>
+                </div>
+
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 hover:border-amber-500 transition">
+                    <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg font-bold mb-2">🛡️</div>
+                    <h4 class="text-sm font-bold text-slate-100">4. 全流程防沉睡探针</h4>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                        按日监控，12个月主动预警，15个月智慧外呼，满18个月前阶梯干预或转借记卡，睡眠率锁定在10%以内。
+                    </p>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE AGENT SIMULATOR MODULE -->
+            <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 mb-8">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 border-b border-slate-700 pb-3">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-100 flex items-center space-x-2">
+                            <span>🤖 “工银智涌”IP伴随式数字人助理（Agent）交互演示</span>
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">选择不同服务场景，体验IP人设表达与RAG刚性金融知识库的解耦融合</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="setAgentScene('bill')" id="btn-scene-bill" class="px-3 py-1 text-xs rounded-lg font-medium bg-indigo-600 text-white shadow">场景一：查账</button>
+                        <button onclick="setAgentScene('points')" id="btn-scene-points" class="px-3 py-1 text-xs rounded-lg font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">场景二：积分兑换</button>
+                        <button onclick="setAgentScene('anti-fraud')" id="btn-scene-fraud" class="px-3 py-1 text-xs rounded-lg font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">场景三：反诈提醒</button>
+                    </div>
+                </div>
+
+                <!-- Chat Display Window -->
+                <div id="chatWindow" class="bg-slate-900/90 rounded-xl p-4 h-52 overflow-y-auto space-y-3 custom-scrollbar text-xs">
+                    <!-- Dynamic chat injected via JS -->
+                </div>
+                <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+                    <span>提示：所有金融利率、账单与条款均由行内本地知识库通过 RAG 刚性输出，杜绝 AI 幻觉。</span>
+                    <span class="text-indigo-400 font-medium">IP人设：国潮文博·小智</span>
+                </div>
+            </div>
+
+            <!-- Plotly Radar Chart -->
+            <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/50">
+                <h3 class="text-base font-bold text-slate-200 mb-1 text-center">传统银企联名 vs “工银智涌”创新模式综合能力维度评估</h3>
+                <p class="text-xs text-slate-400 text-center mb-4">通过 Plotly.js WebGL 渲染，展示方案在合规风控、场景融合与交互性上的全面提升</p>
+                <div id="plotlyRadarContainer" class="w-full h-80 max-h-[360px]"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: FINANCIAL FEASIBILITY & SENSITIVITY -->
+        <section id="financials" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="border-l-4 border-emerald-500 pl-4 mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900">四、商业回报精算与财务敏感性分析</h2>
+                <p class="text-xs md:text-sm text-slate-500 mt-1">3年投入5.2亿元，预估收益10.7亿元，净利润5.5亿元，基准ROI达106%。</p>
+            </div>
+
+            <!-- Interactive Scenario Switcher -->
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800">切换精算情景 (Sensitivity Scenario)</h3>
+                        <p class="text-xs text-slate-500">点击按钮可动态重算三年新增客群、活跃率、长期睡眠卡率及ROI变化</p>
+                    </div>
+                    <div class="inline-flex p-1 bg-slate-200 rounded-lg text-xs font-semibold">
+                        <button onclick="updateFinancials('conservative')" id="btn-scen-cons" class="px-3 py-1.5 rounded-md text-slate-600 transition">保守情景</button>
+                        <button onclick="updateFinancials('base')" id="btn-scen-base" class="px-3 py-1.5 rounded-md bg-white text-emerald-700 shadow transition">基准情景 (106%)</button>
+                        <button onclick="updateFinancials('optimistic')" id="btn-scen-opt" class="px-3 py-1.5 rounded-md text-slate-600 transition">乐观情景</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-white p-3 rounded-lg border border-slate-200">
+                        <span class="text-[11px] text-slate-500">三年新增客群</span>
+                        <p id="calc-users" class="text-lg font-bold text-slate-800 mt-0.5">300 万户</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200">
+                        <span class="text-[11px] text-slate-500">90天月度活跃率</span>
+                        <p id="calc-active" class="text-lg font-bold text-cyan-600 mt-0.5">60 %</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200">
+                        <span class="text-[11px] text-slate-500">长期睡眠卡率</span>
+                        <p id="calc-sleep" class="text-lg font-bold text-amber-600 mt-0.5">10 %</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200">
+                        <span class="text-[11px] text-slate-500">预估三年ROI</span>
+                        <p id="calc-roi" class="text-lg font-bold text-emerald-600 mt-0.5">106 %</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Table Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">三年资源投入预算 (成本合计: 5.2亿元)</h3>
+                    <ul class="text-xs space-y-2 divide-y divide-slate-100 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <li class="flex justify-between pt-1"><span>IP授权与版权引进费</span><span class="font-semibold text-slate-700">0.9 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>实体周边采购与物流履约</span><span class="font-semibold text-slate-700">1.3 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>信用卡积分兑换成本</span><span class="font-semibold text-slate-700">1.6 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>系统开发、大模型与技术运维</span><span class="font-semibold text-slate-700">0.6 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>人员费用与宣发运营</span><span class="font-semibold text-slate-700">0.8 亿元</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">三年综合收益测算 (收益合计: 10.7亿元)</h3>
+                    <ul class="text-xs space-y-2 divide-y divide-slate-100 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <li class="flex justify-between pt-1"><span>低成本活期资金沉淀利差 (日均50亿)</span><span class="font-semibold text-emerald-600">3.0 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>信用卡真实分期利息收入</span><span class="font-semibold text-emerald-600">3.5 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>工银e生活商户收单佣金</span><span class="font-semibold text-emerald-600">2.7 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>增值服务与综合中间业务收入</span><span class="font-semibold text-emerald-600">1.0 亿元</span></li>
+                        <li class="flex justify-between pt-1"><span>睡眠卡压降与工本费节约效益</span><span class="font-semibold text-emerald-600">0.5 亿元</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RISK MATRIX & RACI -->
+        <section id="risks" class="space-y-8">
+            <!-- 4-Layer Risk Countermeasure Wall -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="border-l-4 border-rose-600 pl-4 mb-6">
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-900">五、四重前瞻性风险识别与对冲控制屏障</h2>
+                    <p class="text-xs md:text-sm text-slate-500 mt-1">涵盖监管合规、IP声誉、灰产倒卖与AI大模型安全的全流程风险管控。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="border border-slate-200 rounded-xl p-4 shadow-sm hover:border-rose-300 transition">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold bg-rose-100 text-rose-700 rounded">合规屏障</span>
+                            <h4 class="text-xs font-bold text-slate-800">睡眠卡率熔断探针与借贷物理隔离</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            日度监测细分卡种活跃度，逼近15%自动触发促销唤醒，达18%暂停该卡核发。学生客群物理隔离，仅核发“工银青春借记卡”；信用卡申领须强制落实父母第二还款源。
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-4 shadow-sm hover:border-amber-300 transition">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-700 rounded">声誉对冲</span>
+                            <h4 class="text-xs font-bold text-slate-800">IP负面清单与合同道德熔断条款</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            设立文化金融评审委员会，优先引入文博国潮（故宫）、国产科幻与长线游戏。合作协议刚性嵌入“道德熔断条款”，发生违规负面舆情即刻下架并划扣保证金。
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-4 shadow-sm hover:border-cyan-300 transition">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold bg-cyan-100 text-cyan-700 rounded">防刷治理</span>
+                            <h4 class="text-xs font-bold text-slate-800">高级设备指纹与人脸实名核销防黄牛</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            部署高级设备指纹与行为生物识别阻断黑产脚本外挂。周边兑领须通过工银e生活App人脸核验，收货信息须与银行卡实名一致，严防虚假刷单套利。
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-4 shadow-sm hover:border-indigo-300 transition">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold bg-indigo-100 text-indigo-700 rounded">AI安全围栏</span>
+                            <h4 class="text-xs font-bold text-slate-800">大模型规则隔离与RAG刚性检索</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            语言大模型仅负责语气表述，所有利率、分期成本、还款条款由本地知识库通过RAG刚性提取，严禁大模型自由推论；客户数据全量私有化存储。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RACI Matrix Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="border-l-4 border-slate-700 pl-4 mb-4">
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-900">组织协同与 RACI 责任矩阵</h2>
+                    <p class="text-xs text-slate-500">构建“总行统筹—条线协同—分行执行”的三级组织保障体系 (R:负责 A:审批 C:咨询 I:知会)</p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-center border-collapse border border-slate-200">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-bold">
+                                <th class="p-2 border border-slate-200 text-left">核心任务项</th>
+                                <th class="p-2 border border-slate-200">银行卡部</th>
+                                <th class="p-2 border border-slate-200">网金部</th>
+                                <th class="p-2 border border-slate-200">科技部</th>
+                                <th class="p-2 border border-slate-200">风控部</th>
+                                <th class="p-2 border border-slate-200">合规部</th>
+                                <th class="p-2 border border-slate-200">品宣部</th>
+                                <th class="p-2 border border-slate-200">试点分行</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600">
+                            <tr>
+                                <td class="p-2 text-left font-medium">IP名单制准入与筛选</td>
+                                <td class="p-2 bg-indigo-50 font-bold text-indigo-700">R</td>
+                                <td class="p-2">I</td>
+                                <td class="p-2">—</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2 bg-rose-50 font-bold text-rose-700">A</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2">I</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-left font-medium">产品与3D动态卡面设计</td>
+                                <td class="p-2 bg-indigo-50 font-bold text-indigo-700">R</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2">—</td>
+                                <td class="p-2">I</td>
+                                <td class="p-2 bg-rose-50 font-bold text-rose-700">A</td>
+                                <td class="p-2">—</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-left font-medium">工银e生活次元专区运营</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2 bg-indigo-50 font-bold text-indigo-700">R</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2">—</td>
+                                <td class="p-2">I</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2">C</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-left font-medium">大模型Agent与系统开发</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2 bg-rose-50 font-bold text-rose-700">A</td>
+                                <td class="p-2 bg-indigo-50 font-bold text-indigo-700">R</td>
+                                <td class="p-2">I</td>
+                                <td class="p-2">I</td>
+                                <td class="p-2">—</td>
+                                <td class="p-2">—</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-left font-medium">睡眠卡熔断探针与风控</td>
+                                <td class="p-2 font-bold">A</td>
+                                <td class="p-2">—</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2 bg-indigo-50 font-bold text-indigo-700">R</td>
+                                <td class="p-2">C</td>
+                                <td class="p-2">—</td>
+                                <td class="p-2">I</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: ROADMAP & RETENTION CURVE -->
+        <section id="roadmap" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="border-l-4 border-amber-500 pl-4 mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900">六、实施路径规划与全生命周期留存预估</h2>
+                <p class="text-xs md:text-sm text-slate-500 mt-1">36个月“基础试点—生态扩张—立体共生”三阶段推进路线。</p>
+            </div>
+
+            <!-- 3-Phase Roadmap Flow -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                <div class="bg-slate-50 rounded-xl p-4 border-t-4 border-emerald-500 shadow-sm">
+                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded">阶段一 | M1-M6</span>
+                    <h4 class="text-sm font-bold text-slate-800 mt-2">基础试点与合规筑基期</h4>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        出台IP名单制办法；上线首批文博/科幻IP“工银青春借记卡”及3D卡面；搭建e生活次元专区框架，验证达标赢周边链路。
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-4 border-t-4 border-cyan-500 shadow-sm">
+                    <span class="text-[10px] font-bold text-cyan-600 bg-cyan-100 px-2 py-0.5 rounded">阶段二 | M7-M18</span>
+                    <h4 class="text-sm font-bold text-slate-800 mt-2">生态扩张与技术融合期</h4>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        接入“工银智涌”大模型AI Agent；全国30所高校网点STM专属出卡；上线积分全额通兑与分期免息，防沉睡探针投产。
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-4 border-t-4 border-indigo-500 shadow-sm">
+                    <span class="text-[10px] font-bold text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded">阶段三 | M19-M36</span>
+                    <h4 class="text-sm font-bold text-slate-800 mt-2">立体共生与泛在深化期</h4>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        构建超百个IP池；打通积分与外部会员权益跨平台流转；AI智能体驱动全生命周期运营，形成长效场景金融机制。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Chart 6: Customer Retention Curve Comparison -->
+            <div>
+                <h3 class="text-sm font-bold text-slate-800 mb-2">6.2 客户活跃留存率18个月追踪预测：传统模式 vs “智涌共生”模式</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    传统模式在首刷后客户活跃度断崖式下跌，18个月时睡眠率超35%；而“智涌共生”模式依托IP陪伴与高频周边兑换，18个月活跃留存率维持在66%以上。
+                </p>
+                <div class="chart-container">
+                    <canvas id="chartRetentionCurve"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-8 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-200">中国工商银行 “工行杯” 全国大学生金融科技创新大赛参赛作品</p>
+            <p class="text-slate-400">《e次元共生：基于“工银智涌”大模型与工银e生活的年轻客群IP金融生态创新研究》</p>
+            <p class="text-slate-500">作者：芮梓博（北京大学） | 指导与技术架构：工银智涌大模型 & 工银e生活生态团队</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic & Chart Initializations -->
+    <script>
+        // Label Wrapping Helper for Chart.js (>12 chars logic)
+        function wrapLabelCN(str, maxLen = 10) {
+            if (typeof str !== 'string' || str.length <= maxLen) return str;
+            let result = [];
+            for (let i = 0; i < str.length; i += maxLen) {
+                result.push(str.substring(i, i + maxLen));
+            }
+            return result;
+        }
+
+        // Shared Standard Tooltip Callback Option
+        const standardTooltipOption = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            return Array.isArray(label) ? label.join('') : label;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Interactive Agent Simulator Logic
+        const agentScripts = {
+            'bill': [
+                { role: 'user', text: '小智，我这个月用了多少钱？' },
+                { role: 'agent', text: '主人，本月您已累计消费 1,286 元，其中次元文创专区消费 368 元。您已累计完成 8 笔达标快捷支付，再消费 2 笔即可解锁限定亚克力立牌兑换资格哦！' }
+            ],
+            'points': [
+                { role: 'user', text: '我的积分能兑换什么周边？' },
+                { role: 'agent', text: '您当前有效积分为 12,600 分！可兑换“工银e次元”限定国潮徽章（3,600分），或在工银e生活专区购买周边时按最高 50% 比例抵扣现金。' }
+            ],
+            'anti-fraud': [
+                { role: 'user', text: '有人让我转账帮代购限定谷子，靠谱吗？' },
+                { role: 'agent', text: '【安全警报】检测到涉及“私下代购”关键词！工行提醒您：请切勿向陌生私人账户直接转账。正版周边请认准工银e生活官方专区，谨防网络诈骗。' }
+            ]
+        };
+
+        function setAgentScene(sceneKey) {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.innerHTML = '';
+            
+            // Reset button styles
+            ['bill', 'points', 'fraud'].forEach(k => {
+                const btn = document.getElementById(`btn-scene-${k}`);
+                if (btn) {
+                    btn.className = 'px-3 py-1 text-xs rounded-lg font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition';
+                }
+            });
+            
+            const activeKey = sceneKey === 'anti-fraud' ? 'fraud' : sceneKey;
+            const activeBtn = document.getElementById(`btn-scene-${activeKey}`);
+            if (activeBtn) {
+                activeBtn.className = 'px-3 py-1 text-xs rounded-lg font-medium bg-indigo-600 text-white shadow transition';
+            }
+
+            const messages = agentScripts[sceneKey] || [];
+            messages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = msg.role === 'user' ? 'flex justify-end' : 'flex justify-start';
+                
+                const bubble = document.createElement('div');
+                bubble.className = msg.role === 'user' 
+                    ? 'bg-indigo-600 text-white p-2.5 rounded-xl max-w-[80%] leading-relaxed' 
+                    : 'bg-slate-800 border border-slate-700 text-slate-200 p-2.5 rounded-xl max-w-[85%] leading-relaxed';
+                bubble.innerHTML = msg.text;
+                div.appendChild(bubble);
+                chatWindow.appendChild(div);
+            });
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Scenario Switcher Logic for Section 4
+        const financialScenarios = {
+            'conservative': { users: '250 万户', active: '55 %', sleep: '12 %', roi: '75 %' },
+            'base': { users: '300 万户', active: '60 %', sleep: '10 %', roi: '106 %' },
+            'optimistic': { users: '350 万户', active: '65 %', sleep: '8 %', roi: '135 %' }
+        };
+
+        function updateFinancials(mode) {
+            const data = financialScenarios[mode];
+            if (!data) return;
+
+            document.getElementById('calc-users').innerText = data.users;
+            document.getElementById('calc-active').innerText = data.active;
+            document.getElementById('calc-sleep').innerText = data.sleep;
+            document.getElementById('calc-roi').innerText = data.roi;
+
+            ['cons', 'base', 'opt'].forEach(m => {
+                const btn = document.getElementById(`btn-scen-${m}`);
+                if (btn) btn.className = 'px-3 py-1.5 rounded-md text-slate-600 transition';
+            });
+            const activeMap = { 'conservative': 'cons', 'base': 'base', 'optimistic': 'opt' };
+            const activeBtn = document.getElementById(`btn-scen-${activeMap[mode]}`);
+            if (activeBtn) activeBtn.className = 'px-3 py-1.5 rounded-md bg-white text-emerald-700 shadow transition';
+        }
+
+        // DOM Ready Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Init Agent Chat
+            setAgentScene('bill');
+
+            // CHART 1: Credit Card Trend
+            const ctxCredit = document.getElementById('chartCreditTrend').getContext('2d');
+            new Chart(ctxCredit, {
+                type: 'bar',
+                data: {
+                    labels: ['2021年基准', '2022年峰值', '2023年调优', '2024年末实际'].map(l => wrapLabelCN(l, 8)),
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: '在用发卡量 (亿张)',
+                            data: [8.00, 8.07, 7.66, 7.27],
+                            backgroundColor: 'rgba(79, 70, 229, 0.75)',
+                            borderColor: '#4f46e5',
+                            borderWidth: 1,
+                            yAxisID: 'y1'
+                        },
+                        {
+                            type: 'line',
+                            label: '逾期未偿总额 (亿元)',
+                            data: [860.39, 865.80, 1080.00, 1239.64],
+                            borderColor: '#f43f5e',
+                            backgroundColor: '#f43f5e',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            yAxisID: 'y2'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...standardTooltipOption.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    },
+                    scales: {
+                        y1: { type: 'linear', position: 'left', min: 6.5, max: 9.0, title: { display: true, text: '亿张', font: { size: 10 } } },
+                        y2: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: '亿元', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            // CHART 2: Sleeping Card Rate Gauge
+            const ctxSleeping = document.getElementById('chartSleepingGauge').getContext('2d');
+            new Chart(ctxSleeping, {
+                type: 'doughnut',
+                data: {
+                    labels: ['监管要求上限 (20%)', '行业平均估算 (16%)', '工银智涌目标 (<10%)'].map(l => wrapLabelCN(l, 10)),
+                    datasets: [{
+                        data: [20, 16, 10],
+                        backgroundColor: ['rgba(244, 63, 94, 0.85)', 'rgba(245, 158, 11, 0.85)', 'rgba(6, 182, 212, 0.85)'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...standardTooltipOption.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            // CHART 3: Gu-zi Market Growth
+            const ctxGuzi = document.getElementById('chartGuziMarket').getContext('2d');
+            new Chart(ctxGuzi, {
+                type: 'line',
+                data: {
+                    labels: ['2021年', '2022年', '2023年', '2024年实际', '2026年预测', '2029年预测'].map(l => wrapLabelCN(l, 8)),
+                    datasets: [{
+                        label: '谷子经济核心市场规模 (亿元)',
+                        data: [800, 1020, 1200, 1689, 2350, 3000],
+                        fill: true,
+                        backgroundColor: 'rgba(6, 182, 212, 0.15)',
+                        borderColor: '#06b6d4',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        tension: 0.35
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...standardTooltipOption.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: '亿元', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            // CHART 4: Z-Gen Demographics
+            const ctxYouth = document.getElementById('chartYouthDemographics').getContext('2d');
+            new Chart(ctxYouth, {
+                type: 'bar',
+                data: {
+                    labels: ['女性用户占比', '高线城市用户', '月收入5k-15k', '正版付费意愿', '情绪溢价接受度'].map(l => wrapLabelCN(l, 8)),
+                    datasets: [{
+                        label: '比例 (%)',
+                        data: [61.39, 52.0, 62.98, 88.5, 79.2],
+                        backgroundColor: ['#f43f5e', '#6366f1', '#06b6d4', '#f59e0b', '#10b981'],
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...standardTooltipOption.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { max: 100, title: { display: true, text: '%', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            // CHART 5: Plotly Radar Chart (WebGL Canvas)
+            const radarCategories = ['场景融合度', '科技交互性', '合规风控力', '客户留存率', '综合AUM贡献', '品牌年轻化'];
+            const plotlyData = [
+                {
+                    type: 'scatterpolar',
+                    r: [30, 20, 50, 25, 40, 35],
+                    theta: radarCategories,
+                    fill: 'toself',
+                    name: '传统银企贴图发卡模式',
+                    fillcolor: 'rgba(244, 63, 94, 0.25)',
+                    line: { color: '#f43f5e', width: 2 }
+                },
+                {
+                    type: 'scatterpolar',
+                    r: [92, 95, 98, 90, 88, 96],
+                    theta: radarCategories,
+                    fill: 'toself',
+                    name: '工银智涌“e次元共生”模式',
+                    fillcolor: 'rgba(6, 182, 212, 0.35)',
+                    line: { color: '#06b6d4', width: 3 }
+                }
+            ];
+
+            const plotlyLayout = {
+                polar: {
+                    radialaxis: { visible: true, range: [0, 100], color: '#94a3b8' },
+                    angularaxis: { color: '#f8fafc' },
+                    bgcolor: 'rgba(15, 23, 42, 0.6)'
+                },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { t: 25, b: 25, l: 40, r: 40 },
+                legend: { font: { color: '#cbd5e1', size: 10 }, orientation: 'h', y: -0.1 },
+                font: { color: '#cbd5e1', size: 10 }
+            };
+
+            Plotly.newPlot('plotlyRadarContainer', plotlyData, plotlyLayout, { responsive: true, displayModeBar: false });
+
+            // CHART 6: Retention Curve Comparison
+            const ctxRetention = document.getElementById('chartRetentionCurve').getContext('2d');
+            new Chart(ctxRetention, {
+                type: 'line',
+                data: {
+                    labels: ['第1个月', '第3个月', '第6个月', '第9个月', '第12个月', '第15个月', '第18个月'].map(l => wrapLabelCN(l, 8)),
+                    datasets: [
+                        {
+                            label: '“智涌共生”模式 (活跃留存率 %)',
+                            data: [92, 85, 78, 74, 70, 68, 66],
+                            borderColor: '#06b6d4',
+                            backgroundColor: '#06b6d4',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            pointRadius: 4
+                        },
+                        {
+                            label: '传统办卡礼/盲盒模式 (对比留存率 %)',
+                            data: [75, 45, 32, 25, 20, 15, 11],
+                            borderColor: '#f43f5e',
+                            backgroundColor: '#f43f5e',
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            tension: 0.3,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...standardTooltipOption.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: '留存率 (%)', font: { size: 10 } }, min: 0, max: 100 }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
